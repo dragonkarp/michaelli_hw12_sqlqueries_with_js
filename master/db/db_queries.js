@@ -19,6 +19,10 @@ class Company {
         return this.connection.query("INSERT INTO department SET ?", department);
     }
 
+    // View tables.
+
+
+    // Update records. 
     
 }
 
