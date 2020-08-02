@@ -4,13 +4,13 @@ use employees;
 
 create table department (
     id int unsigned auto_increment,
-    name varchar(30) not null,
+    name varchar(30) unique not null,
     primary key (id)
 );
 
 create table role (
     id int unsigned auto_increment,
-    title varchar(30) not null,
+    title varchar(30) unique not null,
     salary decimal unsigned not null,
     department_id int unsigned not null,
     constraint fk_department foreign key (department_id) references department(id) on delete cascade,
