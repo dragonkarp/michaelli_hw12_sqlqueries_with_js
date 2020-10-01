@@ -1,16 +1,16 @@
-const util = require("util");
-const mysql = require("mysql");
+const util = require("util")
+const mysql = require("mysql")
 
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
   database: "employees"
-});
+})
 
-connection.connect();
+connection.connect()
 
-// Use async functions. 
-connection.query = util.promisify(connection.query);
+// async
+connection.query = util.promisify(connection.query)
 
-module.exports = connection;
+module.exports = connection

@@ -1,29 +1,31 @@
-drop database if exists employees;
-create database employees;
-use employees;
+DROP DATABASE IF EXISTS employees;
+CREATE DATABASE employees;
 
-create table department (
-    id int unsigned auto_increment,
-    name varchar(30) unique not null,
-    primary key (id)
+USE employees;
+
+CREATE TABLE department (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(30) UNIQUE NOT NULL
 );
 
-create table role (
-    id int unsigned auto_increment,
-    title varchar(30) unique not null,
-    salary decimal unsigned not null,
-    department_id int unsigned not null,
-    constraint fk_department foreign key (department_id) references department(id) on delete cascade,
-    primary key (id)
-);
+CREATE TABLE role (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(30) UNIQUE NOT NULL,
+  salary DECIMAL UNSIGNED NOT NULL,
+  department_id INT UNSIGNED NOT NULL,
+  INDEX dep_ind (department_id),  
+  CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE 
+);  
 
-create table employee (
-    id int unsigned auto_increment,
-    first_name varchar(30) not null,
-    last_name varchar(30) not null,
-    role_id int unsigned not null,
-    manager_id int unsigned,
-    constraint fk_manager foreign key (manager_id) references employee(id) on delete set null,
-    primary key (id)
+CREATE TABLE employee (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id INT UNSIGNED NOT NULL,
+  INDEX role_ind (role_id),
+  CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
+  manager_id INT UNSIGNED,
+  INDEX man_ind (manager_id),
+  CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );
 
